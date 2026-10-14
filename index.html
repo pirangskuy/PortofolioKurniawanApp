@@ -43,7 +43,7 @@ section{padding:88px 0}
 .brand{font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
 .brand i{width:30px;height:30px;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center;font-style:normal;font-size:15px}
 .nav-controls {display: flex; align-items: center; gap: 16px;}
-.links{display:flex;gap:28px;font-size:14px;font-weight:500;color:var(--muted)}
+.links{display:flex;gap:20px;font-size:14px;font-weight:500;color:var(--muted)}
 .links a{transition:color .2s}
 .links a:hover{color:var(--text)}
 
@@ -120,12 +120,29 @@ h2{font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:-.03em;line-height:1.15;f
 .edu li{display:flex;gap:12px;align-items:center;font-size:15px;color:var(--muted)}
 .edu li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
 
+/* GALLERY */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 32px; }
+.gallery-item { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; box-shadow: var(--shadow); transition: transform 0.3s; background: var(--surface-2); }
+.gallery-item:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%); display: flex; align-items: flex-end; padding: 20px; opacity: 0; transition: opacity 0.3s; }
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-title { color: #fff; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
+
+/* LIGHTBOX MODAL */
+.lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 24px; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+.lightbox.active { opacity: 1; pointer-events: auto; }
+.lightbox img { max-width: 100%; max-height: 80vh; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain; }
+.lightbox-close { position: absolute; top: 24px; right: 32px; background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; transition: transform 0.2s; }
+.lightbox-close:hover { transform: scale(1.1); color: var(--accent-2); }
+.lightbox-caption { margin-top: 20px; color: #fff; font-size: 1.1rem; font-weight: 500; text-align: center; max-width: 80%; }
+
 /* GAMES SECTIONS */
 .game-area {position: relative; width: 100%; height: 300px; background: var(--surface-2); border: 2px dashed var(--line); border-radius: 16px; overflow: hidden; cursor: crosshair; display: flex; flex-direction: column; align-items: center; justify-content: center;}
 .game-stats {display: flex; justify-content: space-between; font-weight: 600; font-size: 1rem; margin-bottom: 12px; color: var(--text);}
 .game-target {position: absolute; width: 32px; height: 32px; background: var(--accent); border-radius: 50%; border: 4px solid var(--surface); box-shadow: 0 0 15px color-mix(in srgb, var(--accent) 50%, transparent); transform: translate(-50%, -50%); cursor: pointer; transition: transform 0.1s; display: none;}
 .game-target:active {transform: translate(-50%, -50%) scale(0.8);}
-
 .memory-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: var(--surface-2); padding: 16px; border-radius: 16px; border: 2px dashed var(--line); }
 .memory-card { aspect-ratio: 1; background: var(--accent); border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; cursor: pointer; transition: background 0.3s, transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); user-select: none; }
 .memory-card:active { transform: scale(0.95); }
@@ -167,6 +184,7 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   .links.open{display:flex}
   .links a{padding:12px 0;border-bottom:1px solid var(--line)}
   .contact{padding:48px 24px}
+  .lightbox-close { right: 16px; top: 16px; }
 }
 @media print{.nav,.cta,.menu-btn,.theme-toggle{display:none}.reveal{opacity:1;transform:none}section{padding:32px 0}}
 </style>
@@ -181,10 +199,10 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
       <div class="links" id="links">
         <a href="#tentang">Tentang</a>
         <a href="#pengalaman">Pengalaman</a>
+        <a href="#galeri">Galeri</a> <!-- Tambahan menu galeri -->
         <a href="#keahlian">Keahlian</a>
         <a href="#pendidikan">Pendidikan</a>
         <a href="#game">Mini Game</a>
-        <a href="#kontak">Kontak</a>
       </div>
       <button class="theme-toggle" id="themeToggle" aria-label="Ganti Tema" title="Ganti Mode Gelap/Terang">🌙</button>
       <button class="menu-btn" id="menuBtn" aria-label="Buka menu" aria-expanded="false">Menu</button>
@@ -201,7 +219,7 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
         <p class="role">Profesional Pemetaan Lokasi &amp; Habitat — memadukan survei lapangan, GIS/GPS, dan pengembangan web.</p>
         <div class="cta">
           <a href="#kontak" class="btn btn-primary">Hubungi Saya</a>
-          <a href="#pengalaman" class="btn btn-ghost">Lihat Pengalaman</a>
+          <a href="#galeri" class="btn btn-ghost">Lihat Galeri</a>
         </div>
       </div>
       <div class="photo reveal">
@@ -301,6 +319,65 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     </div>
   </div>
 </section>
+
+<!-- SECTION GALERI -->
+<section id="galeri" style="padding-top:24px">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Galeri</div>
+      <h2>Dokumentasi Lapangan &amp; Proyek</h2>
+      <p class="lead">Beberapa momen saat melakukan survei di lapangan dan hasil pengembangan sistem informasi yang saya kerjakan.</p>
+    </div>
+    
+    <div class="gallery-grid reveal">
+      <!-- GANTI URL GAMBAR DI BAWAH INI DENGAN FOTO ASLI ANDA -->
+      
+      <!-- FOTO 1 -->
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1518182170546-076616fd4aa8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Survei Lapangan Hutan & Konservasi')">
+        <img src="https://images.unsplash.com/photo-1518182170546-076616fd4aa8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Survei Hutan" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Survei Lapangan & Konservasi</span></div>
+      </div>
+
+      <!-- FOTO 2 -->
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Pemetaan Titik Koordinat GPS')">
+        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Pemetaan GPS" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Pemetaan Titik Koordinat</span></div>
+      </div>
+
+      <!-- FOTO 3 -->
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Analisis Data Geospasial / WebGIS')">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Pengembangan WebGIS" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Pengembangan WebGIS</span></div>
+      </div>
+
+      <!-- FOTO 4 -->
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Pengembangan Aplikasi Mobile HCV & HCS')">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Aplikasi Mobile" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Aplikasi Mobile HCV/HCS</span></div>
+      </div>
+      
+      <!-- FOTO 5 -->
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Coding Backend Web & Database')">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Coding Web" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Coding Web & Database</span></div>
+      </div>
+      
+      <!-- FOTO 6 -->
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Eksplorasi Area Bukit Kondang & Kerambit')">
+        <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Bukit Kondang" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Area Bukit Kondang & Kerambit</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX CONTAINER (UNTUK ZOOM FOTO) -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Tutup Galeri">&times;</button>
+  <img id="lightboxImg" src="" alt="Zoomed Photo">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
 
 <section id="keahlian" style="padding-top:24px">
   <div class="wrap">
@@ -452,7 +529,6 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   // 3. DARK MODE TOGGLE
   const themeToggleBtn = document.getElementById('themeToggle');
   const htmlElement = document.documentElement;
-
   const savedTheme = localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -474,7 +550,32 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     }
   });
 
-  // 4. LOGIKA MINI GAME 1: SURVEI TITIK KOORDINAT
+  // 4. GALERI LIGHTBOX
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+
+  function openLightbox(src, caption) {
+    lightboxImg.src = src;
+    lightboxCaption.textContent = caption;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Cegah scroll saat foto membesar
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = 'auto'; // Kembalikan scroll
+  }
+
+  // Tutup jika area gelap diklik
+  lightbox.addEventListener('click', (e) => {
+    if(e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+
+  // 5. LOGIKA MINI GAME 1: SURVEI TITIK KOORDINAT
   const startBtn = document.getElementById('startGameBtn');
   const gameArea = document.getElementById('gameArea');
   const gameTarget = document.getElementById('gameTarget');
@@ -525,13 +626,12 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     moveTarget();
   });
 
-  // 5. LOGIKA MINI GAME 2: MEMORI PEMETAAN
+  // 6. LOGIKA MINI GAME 2: MEMORI PEMETAAN
   const memoryBoard = document.getElementById('memoryBoard');
   const movesDisplay = document.getElementById('memoryMoves');
   const statusDisplay = document.getElementById('memoryStatus');
   const resetMemoryBtn = document.getElementById('resetMemoryBtn');
 
-  // Ikon terkait pemetaan, web, dan survei lapangan
   const icons = ['🗺️','🗺️','🌲','🌲','🛰️','🛰️','📍','📍','💻','💻','🦎','🦎'];
   let flippedCards = [];
   let matchedPairs = 0;
@@ -548,7 +648,6 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     flippedCards = [];
     lockBoard = false;
 
-    // Mengacak array ikon
     const shuffled = icons.sort(() => 0.5 - Math.random());
 
     shuffled.forEach((icon) => {
@@ -568,7 +667,6 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   function flipCard() {
     if (lockBoard) return;
     if (this === flippedCards[0]) return;
-    // Abaikan jika kartu sudah terbuka atau sudah cocok
     if (this.classList.contains('matched') || this.classList.contains('flipped')) return;
 
     this.classList.add('flipped');
@@ -605,12 +703,10 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
       flippedCards[1].classList.remove('flipped');
       flippedCards = [];
       lockBoard = false;
-    }, 800); // waktu menatap kartu sebelum dibalik lagi
+    }, 800);
   }
 
   resetMemoryBtn.addEventListener('click', initMemoryGame);
-
-  // Inisialisasi game saat halaman dimuat
   initMemoryGame();
 
 </script>
