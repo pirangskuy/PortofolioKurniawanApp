@@ -129,16 +129,23 @@ h2{font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:-.03em;line-height:1.15;f
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .gallery-item:hover img { transform: scale(1.08); }
 .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%); display: flex; align-items: flex-end; padding: 20px; opacity: 0; transition: opacity 0.3s; }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-item:hover .gallery-overlay { opacity: 1; z-index: 2; }
 .gallery-title { color: #fff; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
+
+/* KELAS KHUSUS PERBAIKAN GAMBAR MIRING / TERBALIK (ROTASI -90) */
+img.rotate-fix { transform: rotate(-90deg) scale(1.35); }
+.gallery-item:hover img.rotate-fix { transform: rotate(-90deg) scale(1.45); }
 
 /* LIGHTBOX MODAL */
 .lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 24px; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
 .lightbox.active { opacity: 1; pointer-events: auto; }
-.lightbox img { max-width: 100%; max-height: 80vh; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain; }
-.lightbox-close { position: absolute; top: 24px; right: 32px; background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; transition: transform 0.2s; }
+.lightbox img { max-width: 100%; max-height: 80vh; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain; transition: transform 0.3s ease; }
+.lightbox-close { position: absolute; top: 24px; right: 32px; background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; transition: transform 0.2s; z-index: 101;}
 .lightbox-close:hover { transform: scale(1.1); color: var(--accent-2); }
 .lightbox-caption { margin-top: 20px; color: #fff; font-size: 1.1rem; font-weight: 500; text-align: center; max-width: 80%; }
+
+/* LIGHTBOX KELAS ROTASI KHUSUS */
+.lightbox img.rotate-fix-lightbox { transform: rotate(-90deg); max-height: 90vw; max-width: 80vh; }
 
 /* GAMES SECTIONS */
 .game-area {position: relative; width: 100%; height: 300px; background: var(--surface-2); border: 2px dashed var(--line); border-radius: 16px; overflow: hidden; cursor: crosshair; display: flex; flex-direction: column; align-items: center; justify-content: center;}
@@ -385,7 +392,7 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     
     <div class="gallery-grid reveal">
       
-      <!-- FOTO 1 - KINI MENGGUNAKAN FOTO LOKAL -->
+      <!-- FOTO 1 -->
       <div class="gallery-item" onclick="openLightbox('pemetaan.jpeg', 'Kegiatan Pemetaan')">
         <img src="pemetaan.jpeg" alt="Pemetaan" loading="lazy">
         <div class="gallery-overlay"><span class="gallery-title">Kegiatan Pemetaan</span></div>
@@ -403,21 +410,22 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
         <div class="gallery-overlay"><span class="gallery-title">Pengembangan WebGIS</span></div>
       </div>
 
-      <!-- FOTO 4 -->
-      <div class="gallery-item" onclick="openLightbox('fotoweb4f2.jpeg', 'Aplikasi Web & Mobile')">
-        <img src="fotoweb4f2.jpeg" alt="Aplikasi Web & Mobile" loading="lazy">
+      <!-- FOTO 4 (Membutuhkan Perbaikan Rotasi: parameter true disisipkan ke JS) -->
+      <div class="gallery-item" onclick="openLightbox('fotoweb4f2.jpeg', 'Aplikasi Web & Mobile', true)">
+        <!-- Tambahkan class="rotate-fix" agar di grid otomatis lurus -->
+        <img src="fotoweb4f2.jpeg" alt="Aplikasi Web & Mobile" class="rotate-fix" loading="lazy">
         <div class="gallery-overlay"><span class="gallery-title">Aplikasi Web & Mobile</span></div>
       </div>
       
-      <!-- FOTO 5 -->
-      <div class="gallery-item" onclick="openLightbox('diskusiwarga.jpeg', 'Diskusi Sosial Bersama Warga')">
-        <img src="diskusiwarga.jpeg" alt="Diskusi Warga" loading="lazy">
+      <!-- FOTO 5 (Membutuhkan Perbaikan Rotasi) -->
+      <div class="gallery-item" onclick="openLightbox('diskusiwarga.jpeg', 'Diskusi Sosial Bersama Warga', true)">
+        <img src="diskusiwarga.jpeg" alt="Diskusi Warga" class="rotate-fix" loading="lazy">
         <div class="gallery-overlay"><span class="gallery-title">Diskusi Bersama Warga</span></div>
       </div>
       
-      <!-- FOTO 6 -->
-      <div class="gallery-item" onclick="openLightbox('fotoacara.jpeg', 'Dokumentasi Acara')">
-        <img src="fotoacara.jpeg" alt="Dokumentasi Acara" loading="lazy">
+      <!-- FOTO 6 (Membutuhkan Perbaikan Rotasi) -->
+      <div class="gallery-item" onclick="openLightbox('fotoacara.jpeg', 'Dokumentasi Acara', true)">
+        <img src="fotoacara.jpeg" alt="Dokumentasi Acara" class="rotate-fix" loading="lazy">
         <div class="gallery-overlay"><span class="gallery-title">Dokumentasi Acara</span></div>
       </div>
 
@@ -611,14 +619,23 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     }
   });
 
-  // 4. GALERI LIGHTBOX
+  // 4. GALERI LIGHTBOX DENGAN PENYESUAIAN ROTASI
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxCaption = document.getElementById('lightboxCaption');
 
-  function openLightbox(src, caption) {
+  // Menambahkan parameter needsRotation yang secara bawaan bernilai false
+  function openLightbox(src, caption, needsRotation = false) {
     lightboxImg.src = src;
     lightboxCaption.textContent = caption;
+    
+    // Jika parameter true, tambahkan class pemutar rotasi di zoom pop-up
+    if (needsRotation) {
+      lightboxImg.classList.add('rotate-fix-lightbox');
+    } else {
+      lightboxImg.classList.remove('rotate-fix-lightbox');
+    }
+    
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
