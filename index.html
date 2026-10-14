@@ -9,7 +9,7 @@
 <meta property="og:title" content="Kurniawan Alhamdani Pandayu Putra — Portofolio">
 <meta property="og:description" content="Profesional pemetaan lokasi & habitat. Survei lapangan, GIS, dan pengembangan web.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230f766e'/%3E%3Ctext x='50' y='66' font-size='52' font-weight='700' text-anchor='middle' fill='white' font-family='Arial'%3EK%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="PasFotoKurniawan.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -41,7 +41,9 @@ section{padding:88px 0}
 .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line); transition: background 0.3s;}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
 .brand{font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
-.brand i{width:30px;height:30px;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center;font-style:normal;font-size:15px}
+/* GANTI LOGO K DENGAN FOTO PROFIL */
+.brand-img {width:32px;height:32px;border-radius:9px;object-fit:cover;border:2px solid var(--accent);background:var(--surface-2);}
+
 .nav-controls {display: flex; align-items: center; gap: 16px;}
 .links{display:flex;gap:20px;font-size:14px;font-weight:500;color:var(--muted)}
 .links a{transition:color .2s}
@@ -163,6 +165,54 @@ h2{font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:-.03em;line-height:1.15;f
 .contact .btn.main{background:#fff;color:#0b4f49}
 .contact .btn.main:hover{box-shadow:0 10px 24px rgba(0,0,0,.25)}
 
+/* --- ANIMASI BURUNG 3D SCROLL-TO-TOP --- */
+.bird-wrapper {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  width: 54px;
+  height: 54px;
+  z-index: 99;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  /* Perspektif untuk efek meliuk 3D */
+  perspective: 300px;
+  transform: translateY(120px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.bird-wrapper.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.bird-svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--accent);
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3));
+  transform-style: preserve-3d;
+  /* Animasi mengepak dan meliuk 3D saat idle */
+  animation: flapAndSway 3s infinite ease-in-out;
+}
+/* Animasi gaya jatuh & meliuk-liuk seperti 3D */
+@keyframes flapAndSway {
+  0% { transform: translateY(0) rotateX(25deg) rotateY(-20deg) rotateZ(-5deg); }
+  50% { transform: translateY(-12px) rotateX(-15deg) rotateY(20deg) rotateZ(8deg); }
+  100% { transform: translateY(0) rotateX(25deg) rotateY(-20deg) rotateZ(-5deg); }
+}
+/* Animasi saat burung diklik (terbang melesat ke atas) */
+.bird-wrapper.flying-up {
+  animation: soarUp 1s cubic-bezier(0.5, 0, 0.1, 1) forwards !important;
+}
+@keyframes soarUp {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  20% { transform: translateY(15px) scale(0.8) rotate(-15deg); } /* Tarik ancang-ancang */
+  100% { transform: translateY(-120vh) scale(1.5) rotate(25deg); opacity: 0; } /* Melesat ke atas menembus layar */
+}
+.bird-svg path { transition: fill 0.3s; }
+.bird-wrapper:hover .bird-svg path { fill: var(--accent-2); }
+
 footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px}
 
 /* REVEAL */
@@ -185,21 +235,25 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   .links a{padding:12px 0;border-bottom:1px solid var(--line)}
   .contact{padding:48px 24px}
   .lightbox-close { right: 16px; top: 16px; }
+  .bird-wrapper { right: 20px; bottom: 20px; }
 }
-@media print{.nav,.cta,.menu-btn,.theme-toggle{display:none}.reveal{opacity:1;transform:none}section{padding:32px 0}}
+@media print{.nav,.cta,.menu-btn,.theme-toggle,.bird-wrapper{display:none}.reveal{opacity:1;transform:none}section{padding:32px 0}}
 </style>
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap">
-    <a href="#top" class="brand"><i>K</i> Kurniawan A.P.P.</a>
+    <a href="#top" class="brand">
+      <img src="PasFotoKurniawan.png" alt="Foto Profil" class="brand-img" onerror="this.style.display='none'"> 
+      Kurniawan A.P.P.
+    </a>
     
     <div class="nav-controls">
       <div class="links" id="links">
         <a href="#tentang">Tentang</a>
         <a href="#pengalaman">Pengalaman</a>
-        <a href="#galeri">Galeri</a> <!-- Tambahan menu galeri -->
+        <a href="#galeri">Galeri</a>
         <a href="#keahlian">Keahlian</a>
         <a href="#pendidikan">Pendidikan</a>
         <a href="#game">Mini Game</a>
@@ -330,7 +384,6 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     </div>
     
     <div class="gallery-grid reveal">
-      <!-- GANTI URL GAMBAR DI BAWAH INI DENGAN FOTO ASLI ANDA -->
       
       <!-- FOTO 1 -->
       <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1518182170546-076616fd4aa8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Survei Lapangan Hutan & Konservasi')">
@@ -372,7 +425,7 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   </div>
 </section>
 
-<!-- LIGHTBOX CONTAINER (UNTUK ZOOM FOTO) -->
+<!-- LIGHTBOX CONTAINER -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()" aria-label="Tutup Galeri">&times;</button>
   <img id="lightboxImg" src="" alt="Zoomed Photo">
@@ -495,6 +548,14 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   <div class="wrap">&copy; 2026 Kurniawan Alhamdani Pandayu Putra. All rights reserved.</div>
 </footer>
 
+<!-- TOMBOL BURUNG SCROLL TO TOP -->
+<div class="bird-wrapper" id="birdBtn" title="Kembali ke atas">
+  <svg class="bird-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- Bentuk burung origami yang terlihat keren -->
+    <path d="M21 5c-1-1-3-1-5 1l-5 5H4l-2 2h6l-3 5 2 2 3-3v6l2-2 5-3 5-5c2-2 2-4 1-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+</div>
+
 <script>
   // 1. MENU MOBILE
   const btn = document.getElementById('menuBtn');
@@ -510,7 +571,7 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     }
   });
 
-  // 2. ANIMASI SCROLL
+  // 2. ANIMASI SCROLL (REVEAL)
   const els = document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
     const io = new IntersectionObserver(function(entries){
@@ -559,23 +620,55 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     lightboxImg.src = src;
     lightboxCaption.textContent = caption;
     lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Cegah scroll saat foto membesar
+    document.body.style.overflow = 'hidden';
   }
 
   function closeLightbox() {
     lightbox.classList.remove('active');
-    document.body.style.overflow = 'auto'; // Kembalikan scroll
+    document.body.style.overflow = 'auto';
   }
 
-  // Tutup jika area gelap diklik
   lightbox.addEventListener('click', (e) => {
     if(e.target === lightbox) {
       closeLightbox();
     }
   });
 
+  // 5. ANIMASI BURUNG SCROLL TO TOP
+  const birdBtn = document.getElementById('birdBtn');
+  let isFlyingUp = false;
 
-  // 5. LOGIKA MINI GAME 1: SURVEI TITIK KOORDINAT
+  window.addEventListener('scroll', () => {
+    if (!isFlyingUp) {
+      // Munculkan burung saat di-scroll lebih dari 400px ke bawah
+      if (window.scrollY > 400) {
+        birdBtn.classList.add('show');
+      } else {
+        birdBtn.classList.remove('show');
+      }
+    }
+  });
+
+  birdBtn.addEventListener('click', () => {
+    if (isFlyingUp) return; // cegah klik ganda
+    isFlyingUp = true;
+    
+    // Tambahkan kelas terbang ke atas
+    birdBtn.classList.add('flying-up');
+    
+    // Scroll halaman ke paling atas secara halus
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Reset posisi burung setelah animasi (1 detik)
+    setTimeout(() => {
+      birdBtn.classList.remove('flying-up');
+      birdBtn.classList.remove('show'); // Sembunyikan burung karena posisi sudah di atas
+      isFlyingUp = false;
+    }, 1000); 
+  });
+
+
+  // 6. LOGIKA MINI GAME 1: SURVEI TITIK KOORDINAT
   const startBtn = document.getElementById('startGameBtn');
   const gameArea = document.getElementById('gameArea');
   const gameTarget = document.getElementById('gameTarget');
@@ -626,7 +719,7 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     moveTarget();
   });
 
-  // 6. LOGIKA MINI GAME 2: MEMORI PEMETAAN
+  // 7. LOGIKA MINI GAME 2: MEMORI PEMETAAN
   const memoryBoard = document.getElementById('memoryBoard');
   const movesDisplay = document.getElementById('memoryMoves');
   const statusDisplay = document.getElementById('memoryStatus');
