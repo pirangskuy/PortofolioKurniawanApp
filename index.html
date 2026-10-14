@@ -120,11 +120,20 @@ h2{font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:-.03em;line-height:1.15;f
 .edu li{display:flex;gap:12px;align-items:center;font-size:15px;color:var(--muted)}
 .edu li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
 
-/* GAME SECTION */
-.game-area {position: relative; width: 100%; height: 320px; background: var(--surface-2); border: 2px dashed var(--line); border-radius: 16px; margin-top: 24px; overflow: hidden; cursor: crosshair; display: flex; flex-direction: column; align-items: center; justify-content: center;}
-.game-stats {display: flex; gap: 24px; font-weight: 600; font-size: 1.1rem; margin-bottom: 16px; color: var(--text);}
+/* GAMES SECTIONS */
+.game-area {position: relative; width: 100%; height: 300px; background: var(--surface-2); border: 2px dashed var(--line); border-radius: 16px; overflow: hidden; cursor: crosshair; display: flex; flex-direction: column; align-items: center; justify-content: center;}
+.game-stats {display: flex; justify-content: space-between; font-weight: 600; font-size: 1rem; margin-bottom: 12px; color: var(--text);}
 .game-target {position: absolute; width: 32px; height: 32px; background: var(--accent); border-radius: 50%; border: 4px solid var(--surface); box-shadow: 0 0 15px color-mix(in srgb, var(--accent) 50%, transparent); transform: translate(-50%, -50%); cursor: pointer; transition: transform 0.1s; display: none;}
 .game-target:active {transform: translate(-50%, -50%) scale(0.8);}
+
+.memory-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: var(--surface-2); padding: 16px; border-radius: 16px; border: 2px dashed var(--line); }
+.memory-card { aspect-ratio: 1; background: var(--accent); border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; cursor: pointer; transition: background 0.3s, transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); user-select: none; }
+.memory-card:active { transform: scale(0.95); }
+.memory-card span { display: none; pointer-events: none; }
+.memory-card.flipped { background: var(--surface); border: 2px solid var(--accent); }
+.memory-card.flipped span { display: block; }
+.memory-card.matched { background: transparent; border: 2px solid var(--accent-2); cursor: default; box-shadow: none; }
+.memory-card.matched span { display: block; opacity: 0.5; }
 
 /* CONTACT */
 .contact{background:linear-gradient(135deg,#0f766e,#0b4f49);color:#fff;border-radius:28px;padding:64px 40px;text-align:center;position:relative;overflow:hidden}
@@ -235,6 +244,11 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
         <div class="col-head"><div class="ic">◎</div><h3>Pemetaan &amp; Konservasi</h3></div>
 
         <div class="item">
+          <h4>Surveyor Pemetaan NKT &amp; SKT</h4>
+          <div class="where">Sungai Sambang</div>
+          <p>Melaksanakan survei dan pemetaan kawasan Nilai Konservasi Tinggi (NKT) dan Stok Karbon Tinggi (SKT), yang mencakup pemetaan tutupan area hutan Bukit Kondang serta Bukit Kerambit (Rimba).</p>
+        </div>
+        <div class="item">
           <h4>Surveyor Monitoring &amp; Management Hutan 4F</h4>
           <div class="where">Desa Setawar, Kab. Sekadau</div>
           <p>Monitoring aktivitas dan kondisi area hutan, pendataan titik/petak, serta pendokumentasian progres lapangan secara berkala.</p>
@@ -338,24 +352,49 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   </div>
 </section>
 
-<!-- SECTION GAME -->
+<!-- SECTION GAMES -->
 <section id="game" style="padding-top:24px">
   <div class="wrap">
     <div class="reveal">
-      <div class="eyebrow">Mini Game</div>
-      <h2>Survei Titik Koordinat</h2>
-      <p class="lead">Uji kecepatan Anda dalam memetakan titik lokasi. Tangkap titik koordinat sebanyak-banyaknya dalam 15 detik!</p>
+      <div class="eyebrow">Mini Games</div>
+      <h2>Waktu Istirahat!</h2>
+      <p class="lead">Uji kecepatan dan daya ingat Anda dengan dua mini game sederhana berbasis web di bawah ini.</p>
     </div>
     
-    <div class="card reveal" style="margin-top: 24px;">
-      <div class="game-stats">
-        <div>Skor: <span id="gameScore" style="color: var(--accent);">0</span></div>
-        <div>Waktu: <span id="gameTime" style="color: var(--accent);">15</span>s</div>
+    <div class="cols" style="margin-top: 24px;">
+      <!-- Game 1: Target Clicker -->
+      <div class="card reveal" style="display: flex; flex-direction: column;">
+        <h3 style="margin-bottom: 8px; font-size: 1.15rem;">1. Survei Titik Koordinat</h3>
+        <p style="font-size: 14px; color: var(--muted); margin-bottom: 20px;">Uji kecepatan Anda. Tangkap titik koordinat sebanyak mungkin dalam 15 detik!</p>
+        
+        <div class="game-stats">
+          <div>Skor: <span id="gameScore" style="color: var(--accent);">0</span></div>
+          <div>Waktu: <span id="gameTime" style="color: var(--accent);">15</span>s</div>
+        </div>
+        
+        <div class="game-area" id="gameArea">
+          <button id="startGameBtn" class="btn btn-primary" style="z-index: 10;">Mulai Survei</button>
+          <div id="gameTarget" class="game-target"></div>
+        </div>
       </div>
-      
-      <div class="game-area" id="gameArea">
-        <button id="startGameBtn" class="btn btn-primary" style="z-index: 10;">Mulai Survei</button>
-        <div id="gameTarget" class="game-target"></div>
+
+      <!-- Game 2: Memory Match -->
+      <div class="card reveal" style="display: flex; flex-direction: column;">
+        <h3 style="margin-bottom: 8px; font-size: 1.15rem;">2. Memori Pemetaan</h3>
+        <p style="font-size: 14px; color: var(--muted); margin-bottom: 20px;">Cocokkan pasangan ikon yang berkaitan dengan elemen GIS dan pengkodean.</p>
+        
+        <div class="game-stats">
+          <div>Langkah: <span id="memoryMoves" style="color: var(--accent);">0</span></div>
+          <div>Status: <span id="memoryStatus" style="color: var(--accent);">Siap</span></div>
+        </div>
+        
+        <div id="memoryBoard" class="memory-board">
+          <!-- Cards injected via JS -->
+        </div>
+        
+        <div style="text-align: center; margin-top: 16px;">
+          <button id="resetMemoryBtn" class="btn btn-ghost" style="padding: 8px 16px; font-size: 13px;">Acak & Ulang Game</button>
+        </div>
       </div>
     </div>
   </div>
@@ -414,7 +453,6 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   const themeToggleBtn = document.getElementById('themeToggle');
   const htmlElement = document.documentElement;
 
-  // Cek preferensi sebelumnya atau sistem
   const savedTheme = localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -436,7 +474,7 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     }
   });
 
-  // 4. LOGIKA MINI GAME
+  // 4. LOGIKA MINI GAME 1: SURVEI TITIK KOORDINAT
   const startBtn = document.getElementById('startGameBtn');
   const gameArea = document.getElementById('gameArea');
   const gameTarget = document.getElementById('gameTarget');
@@ -448,11 +486,8 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   let gameInterval;
 
   function moveTarget() {
-    // Kurangi 40px agar target tidak keluar dari area box
     const maxX = gameArea.clientWidth - 40; 
     const maxY = gameArea.clientHeight - 40;
-    
-    // Posisi acak
     const randomX = Math.floor(Math.random() * maxX) + 20;
     const randomY = Math.floor(Math.random() * maxY) + 20;
     
@@ -461,7 +496,6 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   }
 
   startBtn.addEventListener('click', () => {
-    // Reset Game
     score = 0;
     timeLeft = 15;
     scoreDisplay.textContent = score;
@@ -469,10 +503,8 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     
     startBtn.style.display = 'none';
     gameTarget.style.display = 'block';
-    
     moveTarget();
 
-    // Mulai Waktu
     gameInterval = setInterval(() => {
       timeLeft--;
       timeDisplay.textContent = timeLeft;
@@ -487,11 +519,99 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   });
 
   gameTarget.addEventListener('click', (e) => {
-    e.stopPropagation(); // Mencegah klik tembus
+    e.stopPropagation(); 
     score++;
     scoreDisplay.textContent = score;
     moveTarget();
   });
+
+  // 5. LOGIKA MINI GAME 2: MEMORI PEMETAAN
+  const memoryBoard = document.getElementById('memoryBoard');
+  const movesDisplay = document.getElementById('memoryMoves');
+  const statusDisplay = document.getElementById('memoryStatus');
+  const resetMemoryBtn = document.getElementById('resetMemoryBtn');
+
+  // Ikon terkait pemetaan, web, dan survei lapangan
+  const icons = ['🗺️','🗺️','🌲','🌲','🛰️','🛰️','📍','📍','💻','💻','🦎','🦎'];
+  let flippedCards = [];
+  let matchedPairs = 0;
+  let moves = 0;
+  let lockBoard = false;
+
+  function initMemoryGame() {
+    memoryBoard.innerHTML = '';
+    matchedPairs = 0;
+    moves = 0;
+    movesDisplay.textContent = moves;
+    statusDisplay.textContent = 'Bermain...';
+    statusDisplay.style.color = 'var(--accent)';
+    flippedCards = [];
+    lockBoard = false;
+
+    // Mengacak array ikon
+    const shuffled = icons.sort(() => 0.5 - Math.random());
+
+    shuffled.forEach((icon) => {
+      const card = document.createElement('div');
+      card.classList.add('memory-card');
+      card.dataset.icon = icon;
+      
+      const span = document.createElement('span');
+      span.textContent = icon;
+      card.appendChild(span);
+
+      card.addEventListener('click', flipCard);
+      memoryBoard.appendChild(card);
+    });
+  }
+
+  function flipCard() {
+    if (lockBoard) return;
+    if (this === flippedCards[0]) return;
+    // Abaikan jika kartu sudah terbuka atau sudah cocok
+    if (this.classList.contains('matched') || this.classList.contains('flipped')) return;
+
+    this.classList.add('flipped');
+    flippedCards.push(this);
+
+    if (flippedCards.length === 2) {
+      moves++;
+      movesDisplay.textContent = moves;
+      checkForMatch();
+    }
+  }
+
+  function checkForMatch() {
+    const isMatch = flippedCards[0].dataset.icon === flippedCards[1].dataset.icon;
+    isMatch ? disableCards() : unflipCards();
+  }
+
+  function disableCards() {
+    flippedCards[0].classList.add('matched');
+    flippedCards[1].classList.add('matched');
+    flippedCards = [];
+    matchedPairs++;
+
+    if (matchedPairs === icons.length / 2) {
+      statusDisplay.textContent = 'Menang! 🎉';
+      statusDisplay.style.color = 'var(--accent-2)';
+    }
+  }
+
+  function unflipCards() {
+    lockBoard = true;
+    setTimeout(() => {
+      flippedCards[0].classList.remove('flipped');
+      flippedCards[1].classList.remove('flipped');
+      flippedCards = [];
+      lockBoard = false;
+    }, 800); // waktu menatap kartu sebelum dibalik lagi
+  }
+
+  resetMemoryBtn.addEventListener('click', initMemoryGame);
+
+  // Inisialisasi game saat halaman dimuat
+  initMemoryGame();
 
 </script>
 </body>
