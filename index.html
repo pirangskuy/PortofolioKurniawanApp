@@ -156,7 +156,7 @@ h2{font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:-.03em;line-height:1.15;f
 
 /* CONTACT */
 .contact{background:linear-gradient(135deg,#0f766e,#0b4f49);color:#fff;border-radius:28px;padding:64px 40px;text-align:center;position:relative;overflow:hidden}
-.contact::after{content:"";position:absolute;width:380px;height:380px;right:-120px;top:-160px;border-radius:50%;background:rgba(255,255,255,.07)}
+.contact::after{content:"absolute";width:380px;height:380px;right:-120px;top:-160px;border-radius:50%;background:rgba(255,255,255,.07)}
 .contact h2{color:#fff}
 .contact p{color:rgba(255,255,255,.8);max-width:520px;margin:0 auto 32px}
 .contact .row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;position:relative;z-index:1}
@@ -385,40 +385,40 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
     
     <div class="gallery-grid reveal">
       
-      <!-- FOTO 1 -->
-      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1518182170546-076616fd4aa8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Survei Lapangan Hutan & Konservasi')">
-        <img src="https://images.unsplash.com/photo-1518182170546-076616fd4aa8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Survei Hutan" loading="lazy">
-        <div class="gallery-overlay"><span class="gallery-title">Survei Lapangan & Konservasi</span></div>
+      <!-- FOTO 1 - KINI MENGGUNAKAN FOTO LOKAL -->
+      <div class="gallery-item" onclick="openLightbox('pemetaan.jpeg', 'Kegiatan Pemetaan')">
+        <img src="pemetaan.jpeg" alt="Pemetaan" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Kegiatan Pemetaan</span></div>
       </div>
 
       <!-- FOTO 2 -->
-      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Pemetaan Titik Koordinat GPS')">
-        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Pemetaan GPS" loading="lazy">
-        <div class="gallery-overlay"><span class="gallery-title">Pemetaan Titik Koordinat</span></div>
+      <div class="gallery-item" onclick="openLightbox('lapangan2.jpg', 'Survei Lapangan')">
+        <img src="lapangan2.jpg" alt="Survei Lapangan" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Survei Lapangan</span></div>
       </div>
 
       <!-- FOTO 3 -->
-      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Analisis Data Geospasial / WebGIS')">
-        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Pengembangan WebGIS" loading="lazy">
+      <div class="gallery-item" onclick="openLightbox('fotoweb4f.jpeg', 'Pengembangan WebGIS Farmers4Forest')">
+        <img src="fotoweb4f.jpeg" alt="Pengembangan WebGIS" loading="lazy">
         <div class="gallery-overlay"><span class="gallery-title">Pengembangan WebGIS</span></div>
       </div>
 
       <!-- FOTO 4 -->
-      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Pengembangan Aplikasi Mobile HCV & HCS')">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Aplikasi Mobile" loading="lazy">
-        <div class="gallery-overlay"><span class="gallery-title">Aplikasi Mobile HCV/HCS</span></div>
+      <div class="gallery-item" onclick="openLightbox('fotoweb4f2.jpeg', 'Aplikasi Web & Mobile')">
+        <img src="fotoweb4f2.jpeg" alt="Aplikasi Web & Mobile" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Aplikasi Web & Mobile</span></div>
       </div>
       
       <!-- FOTO 5 -->
-      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Coding Backend Web & Database')">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Coding Web" loading="lazy">
-        <div class="gallery-overlay"><span class="gallery-title">Coding Web & Database</span></div>
+      <div class="gallery-item" onclick="openLightbox('diskusiwarga.jpeg', 'Diskusi Sosial Bersama Warga')">
+        <img src="diskusiwarga.jpeg" alt="Diskusi Warga" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Diskusi Bersama Warga</span></div>
       </div>
       
       <!-- FOTO 6 -->
-      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Eksplorasi Area Bukit Kondang & Kerambit')">
-        <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Bukit Kondang" loading="lazy">
-        <div class="gallery-overlay"><span class="gallery-title">Area Bukit Kondang & Kerambit</span></div>
+      <div class="gallery-item" onclick="openLightbox('fotoacara.jpeg', 'Dokumentasi Acara')">
+        <img src="fotoacara.jpeg" alt="Dokumentasi Acara" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-title">Dokumentasi Acara</span></div>
       </div>
 
     </div>
@@ -640,7 +640,6 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
 
   window.addEventListener('scroll', () => {
     if (!isFlyingUp) {
-      // Munculkan burung saat di-scroll lebih dari 400px ke bawah
       if (window.scrollY > 400) {
         birdBtn.classList.add('show');
       } else {
@@ -650,19 +649,16 @@ footer{padding:36px 0 48px;text-align:center;color:var(--muted);font-size:13.5px
   });
 
   birdBtn.addEventListener('click', () => {
-    if (isFlyingUp) return; // cegah klik ganda
+    if (isFlyingUp) return; 
     isFlyingUp = true;
     
-    // Tambahkan kelas terbang ke atas
     birdBtn.classList.add('flying-up');
     
-    // Scroll halaman ke paling atas secara halus
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Reset posisi burung setelah animasi (1 detik)
     setTimeout(() => {
       birdBtn.classList.remove('flying-up');
-      birdBtn.classList.remove('show'); // Sembunyikan burung karena posisi sudah di atas
+      birdBtn.classList.remove('show'); 
       isFlyingUp = false;
     }, 1000); 
   });
