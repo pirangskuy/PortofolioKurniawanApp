@@ -1,51 +1,50 @@
-/* certificates.js — EDIT FILE INI untuk menambah/mengubah sertifikat.
+/* certificates.js — daftar sertifikat yang tampil di sertifikat.html
  *
- * Field:
+ * Cara menambah: salin satu blok { ... }, tempel di bawahnya (jangan lupa koma), lalu isi.
+ *
  *  title    : nama sertifikat
- *  issuer   : penerbit / lembaga
- *  date     : tanggal terbit (teks bebas, mis. "Maret 2025")
- *  category : salah satu kategori bebas (dipakai untuk filter), mis. "GIS & Pemetaan"
+ *  issuer   : penerbit / lembaga       (kosongkan "" bila belum diisi — tidak akan ditampilkan)
+ *  date     : tanggal terbit, mis. "Maret 2025"   (kosongkan "" bila belum diisi)
+ *  category : kategori untuk tombol filter (tulis persis sama agar dikelompokkan)
  *  id       : nomor sertifikat (opsional)
- *  image    : path gambar sertifikat, mis. "sertifikat/gis-dasar.jpg" (opsional)
- *  link     : URL verifikasi (opsional)
- *
- * CATATAN: entri di bawah ini hanyalah CONTOH. Ganti dengan sertifikat asli Anda.
+ *  image    : path gambar di folder sertifikat/ (nama file harus persis, termasuk huruf besar/kecil)
+ *  link     : URL verifikasi berawalan https:// (opsional)
  */
 window.CERTIFICATES = [
   {
-    title: "Contoh — Dasar GIS & Pemetaan Digital",
-    issuer: "Nama Lembaga Pelatihan",
-    date: "Januari 2025",
+    title: "Pelatihan Dasar GIS Geospasial",
+    issuer: "",
+    date: "",
     category: "GIS & Pemetaan",
     id: "",
-    image: "sertifikat/contoh-gis.jpg",
+    image: "sertifikat/Sertifikat Pelatihan Dasar GIS Geospasial.png",
     link: ""
   },
   {
-    title: "Contoh — Survei Nilai Konservasi Tinggi (NKT/HCV)",
-    issuer: "Nama Lembaga / NGO",
-    date: "Juni 2025",
-    category: "Konservasi",
-    id: "",
-    image: "sertifikat/contoh-nkt.jpg",
-    link: ""
-  },
-  {
-    title: "Contoh — Pengembangan Web dengan Laravel",
-    issuer: "Nama Platform Belajar",
-    date: "Agustus 2025",
+    title: "Laravel Web Development",
+    issuer: "",
+    date: "",
     category: "Pemrograman",
     id: "",
-    image: "sertifikat/contoh-laravel.jpg",
+    image: "sertifikat/Neon Laravel Web Development Certificate.png",
     link: ""
   },
   {
-    title: "Contoh — Organisasi & Kepemimpinan Mahasiswa",
-    issuer: "Universitas Muhammadiyah Pontianak",
-    date: "2024",
-    category: "Organisasi",
+    title: "Cybersecurity — Certificate of Completion",
+    issuer: "",
+    date: "",
+    category: "Keamanan Siber",
     id: "",
-    image: "",
+    image: "sertifikat/Cybersecurity Certificate of Completion.png",
+    link: ""
+  },
+  {
+    title: "Sertifikat Partisipasi",
+    issuer: "",
+    date: "",
+    category: "Partisipasi",
+    id: "",
+    image: "sertifikat/Green Nature-Themed Participation Certificate.png",
     link: ""
   }
 ];

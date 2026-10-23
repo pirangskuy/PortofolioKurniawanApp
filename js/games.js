@@ -490,7 +490,7 @@
     await Store.init();
     modeNote.textContent = Store.getMode() === 'api'
       ? 'Skor tersimpan di server dan terlihat oleh semua pengunjung.'
-      : '⚠️ Mode lokal: server skor tidak ditemukan, skor hanya tersimpan di browser ini. Unggah folder api/ ke hosting PHP untuk papan skor global.';
+      : 'Berisi Papan peringkat.';
     renderPlayer(); select('survei'); refreshBoards();
   })();
 })();
