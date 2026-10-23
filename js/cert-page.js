@@ -23,8 +23,15 @@
     if (c.image) {
       const img = new Image();
       img.alt = 'Sertifikat ' + c.title;
-      img.loading = 'lazy';
+      img.decoding = 'async'; // (tanpa loading="lazy": gambar yang belum ada di halaman tidak akan pernah diunduh)
       img.onload = () => { ph.remove(); thumb.appendChild(img); thumb.dataset.lightbox = c.image; thumb.dataset.caption = c.title; };
+      img.onerror = () => {
+        // Tampilkan path yang gagal dimuat agar mudah dicek (hapus blok ini bila sudah beres)
+        const note = el('small', null, 'Gambar tidak ditemukan: ' + c.image);
+        note.style.cssText = 'position:absolute;left:8px;right:8px;bottom:6px;font-size:11px;color:var(--muted);text-align:center;word-break:break-all';
+        thumb.appendChild(note);
+        console.warn('Gagal memuat gambar sertifikat:', c.image);
+      };
       img.src = c.image; // jika gagal dimuat, ikon pengganti tetap tampil
     }
     art.appendChild(thumb);
