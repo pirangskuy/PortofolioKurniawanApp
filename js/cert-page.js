@@ -3,7 +3,7 @@
   const filters = document.getElementById('certFilters');
   const count = document.getElementById('certCount');
   const data = (window.CERTIFICATES || []);
-  const ICON = { 'GIS & Pemetaan': '🗺️', 'Konservasi': '🌲', 'Pemrograman': '💻', 'Organisasi': '🤝' };
+  const ICON = { 'GIS & Pemetaan': '🗺️', 'Konservasi': '🌲', 'Pemrograman': '💻', 'Keamanan Siber': '🛡️', 'Organisasi': '🤝' };
   let active = 'Semua';
 
   function el(tag, cls, text) {
@@ -34,6 +34,13 @@
     body.appendChild(el('h3', null, c.title));
     body.appendChild(el('div', 'cert-meta', [c.issuer, c.date].filter(Boolean).join(' · ')));
     if (c.id) body.appendChild(el('div', 'cert-meta', 'No. ' + c.id));
+    if (c.desc) body.appendChild(el('p', 'cert-meta', c.desc));
+    if (c.topics && c.topics.length) {
+      const tg = el('div', 'tags');
+      tg.style.marginTop = '8px';
+      c.topics.forEach(t => tg.appendChild(el('span', null, t)));
+      body.appendChild(tg);
+    }
     const act = el('div', 'cert-actions');
     if (c.link && /^https?:\/\//i.test(c.link)) {
       const a = el('a', 'btn btn-ghost btn-sm', 'Verifikasi ↗');
